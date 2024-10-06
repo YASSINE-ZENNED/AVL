@@ -13,7 +13,7 @@
   <url>http://www.example.com</url>
 
   <modules>
-    <module>Auth</module>
+    <module>Authentification</module>
   </modules>
 
   <properties>

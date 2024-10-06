@@ -20,10 +20,12 @@ keycloak:
   domain: http://localhost:8088
   realm: AVL
   adminClientId: admin-cli
-  adminClientSecret: yVxzziRwWkyDmkTFyeVgnwRkKYWJuhIW
+  adminClientSecret: PkVyO0vifkCNEQXGeDTFtc9WTvoP5Zwi
   client: AVL
   urls:
     auth: http://localhost:8088
+
+
 eureka:
   client:
     server-url:

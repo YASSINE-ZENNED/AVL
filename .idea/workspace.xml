@@ -4,12 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07e9cac4-ba10-44a3-9f4f-59b8bf461ffa" name="Changes" comment="" />
+    <list default="true" id="07e9cac4-ba10-44a3-9f4f-59b8bf461ffa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserSerivceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/RestTemplateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/UserLoginRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/UserRegistrationRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/userLoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Utils/Beans.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/SecConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/SecConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;YASSINE-ZENNED&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/YASSINE-ZENNED/AVL.git&quot;,
+    &quot;accountId&quot;: &quot;e55a8126-4ea7-4d37-ba1f-36e118c7f91c&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -22,9 +66,15 @@
   "keyToString": {
     "Application.App.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.AuthentificationApplication.executor": "Run",
     "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/yassi/OneDrive/Desktop/Project-5Eme/AVL/Authentification/src/main/java/com/avl/authentification",
@@ -33,9 +83,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
@@ -89,7 +139,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728050513760</updated>
-      <workItem from="1728050514820" duration="732000" />
+      <workItem from="1728050514820" duration="2822000" />
+      <workItem from="1728237787351" duration="7061000" />
     </task>
     <servers />
   </component>
