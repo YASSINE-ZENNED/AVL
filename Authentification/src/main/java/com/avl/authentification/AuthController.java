@@ -5,6 +5,7 @@ import com.avl.authentification.Models.UserLoginRecord;
 import com.avl.authentification.Models.UserRegistrationRecord;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,22 +32,24 @@ public class AuthController {
 //    }
 
     @PostMapping("/login")
-    @PreAuthorize("permitAll()")
     public Object login(@RequestBody UserLoginRecord userLoginRecord) {
         log.info("userLoginRecord: {}", userLoginRecord.toString() );
         return        keycloakUserService1.getUserTokens(userLoginRecord);
-
     }
-    @CrossOrigin(origins = "*")
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserRegistrationRecord userRegistrationRecord) {
         return  keycloakUserService1.createUser(userRegistrationRecord);
     }
 
-    @GetMapping("/getUser")
-    @PreAuthorize("permitAll()")
 
+    @PostMapping("/userinfo")
+    public String getUserInfo(@RequestBody String accessToken) {
+
+return keycloakUserService1.getUser(accessToken);
+    }
+    @GetMapping("/getUser")
     public UserInfo getUser(@RequestBody String token) throws JsonProcessingException {
 
         log.info("token :{}", token);

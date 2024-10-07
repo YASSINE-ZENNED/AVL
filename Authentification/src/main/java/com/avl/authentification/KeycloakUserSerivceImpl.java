@@ -44,6 +44,21 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
 
     private  Keycloak keycloak;
 
+    public String getUser(String accessToken) {
+        String url = "http://localhost:8088/realms/AVL/protocol/openid-connect/userinfo";
+
+        System.out.println(accessToken+"**************************");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response.getBody();
+    }
+
 //    private String keycloakRealm;
 
     // The RestTemplate object to make HTTP requests
@@ -69,8 +84,12 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
+        System.out.println("*************************************");
+
         ResponseEntity<Object> response = restTemplate.exchange(BASE_URL1, HttpMethod.POST, request, Object.class);
 
+
+        System.out.println("*************************************");
         // Call the API using the exchange method and get the response as a Ticket object
         // Get the userLoginResponse object from the response
         String json = mapper.writeValueAsString(response.getBody());
@@ -104,9 +123,9 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.put("username", Collections.singletonList(userLoginRecord.username()));
         params.put("password", Collections.singletonList(userLoginRecord.password()));
-        params.put("client_secret", Collections.singletonList("oB9cpN0oAvIsZcbiQEZUeRcv1ZDUIjKP"));
+        params.put("client_secret", Collections.singletonList("PkVyO0vifkCNEQXGeDTFtc9WTvoP5Zwi"));
         params.put("grant_type", Collections.singletonList("password"));
-        params.put("client_id", Collections.singletonList("Ticket-App"));
+        params.put("client_id", Collections.singletonList("AVL"));
         // Create a HttpEntity object with the parameters and headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -189,12 +208,13 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         return realm1.users();
     }
 
-
     @Override
     public UserRepresentation getUserById(String userId) {
 //        return  getUsersResource().get(userId).toRepresentation();
         return  getUsersResource().get(userId).toRepresentation();
     }
+
+
 
     @Override
     public void deleteUserById(String userId) {
@@ -209,7 +229,6 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User not deleted");
 
         }
-
     }
 
 
