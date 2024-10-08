@@ -20,7 +20,7 @@ keycloak:
   domain: http://localhost:8088
   realm: AVL
   adminClientId: admin-cli
-  adminClientSecret: PkVyO0vifkCNEQXGeDTFtc9WTvoP5Zwi
+  adminClientSecret: C5pJ5WybnHGUzJVNL6p0TJ0TLeVOWxe9
   client: AVL
   urls:
     auth: http://localhost:8088
