@@ -7,9 +7,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/auth")
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private  KeycloakUserSerivceImpl keycloakUserService1;
+    private KeycloakUserSerivceImpl keycloakUserService1;
 
 
     @GetMapping("/test")
@@ -26,23 +30,23 @@ public class AuthController {
         return "Hello World";
     }
 
-//    @GetMapping("/Admin")
+    //    @GetMapping("/Admin")
 //    @PreAuthorize("hasRole('client-admin')")
 //    public String authA() {
 //        return "Hello World";
 //    }
-@CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")
 
     @PostMapping("/login")
     public Object login(@RequestBody UserLoginRecord userLoginRecord) {
-        log.info("userLoginRecord: {}", userLoginRecord.toString() );
-        return        keycloakUserService1.getUserTokens(userLoginRecord);
+
+        return keycloakUserService1.getUserTokens(userLoginRecord);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserRegistrationRecord userRegistrationRecord) {
-        return  keycloakUserService1.createUser(userRegistrationRecord);
+        return keycloakUserService1.createUser(userRegistrationRecord);
     }
 
 
@@ -62,20 +66,34 @@ public class AuthController {
     }
 
     @GetMapping("/getUsers")
-    public Object getUsers(@RequestBody String token) throws JsonProcessingException {
+    public Object getUsers(@RequestBody String token) {
 
-        log.info("token :{}", token);
-        return keycloakUserService1.getUses(token);
+        token = token.replace("token=", "");
+
+        return keycloakUserService1.getUsers(token);
 
     }
 
-    @DeleteMapping("/delete/{userId}")
-    @PreAuthorize("hasRole('ROLE_admin')")
-    public String deleteById( @PathVariable String userId) {
-        keycloakUserService1.deleteUserById(userId);
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteById(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        String userId = body.get("userId");
+        if (token != null && userId != null) {
+            token = token.replace("token:", "");
+            userId = userId.replace("userId:", "");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token or userID is missing");
+        }
 
-        return " user deleted";
-
+        try {
+            // Assuming keycloakUserService1.deleteUserById(user, token) exists and works as intended
+            keycloakUserService1.deleteUserById(userId, token);
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (Exception e) {
+            // Handle exceptions appropriately (e.g., log the error, return a specific error message)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete user: " + e.getMessage());
+        }
     }
 
 }
