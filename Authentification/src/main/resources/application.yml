@@ -25,7 +25,6 @@ keycloak:
   urls:
     auth: http://localhost:8088
 
-
 eureka:
   client:
     server-url:

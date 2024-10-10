@@ -13,23 +13,25 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
+
 public class AuthController {
 
     @Autowired
     private  KeycloakUserSerivceImpl keycloakUserService1;
 
 
-//    @GetMapping("/Client")
-//    @PreAuthorize("hasRole('client-user')")
-//    public String authC() {
-//        return "Hello World";
-//    }
-//
+    @GetMapping("/test")
+    public String authC() {
+        return "Hello World";
+    }
+
 //    @GetMapping("/Admin")
 //    @PreAuthorize("hasRole('client-admin')")
 //    public String authA() {
 //        return "Hello World";
 //    }
+@CrossOrigin(origins = "*")
 
     @PostMapping("/login")
     public Object login(@RequestBody UserLoginRecord userLoginRecord) {
@@ -47,13 +49,23 @@ public class AuthController {
     @PostMapping("/userinfo")
     public String getUserInfo(@RequestBody String accessToken) {
 
-return keycloakUserService1.getUser(accessToken);
+
+        return keycloakUserService1.getUser(accessToken);
     }
+
     @GetMapping("/getUser")
     public UserInfo getUser(@RequestBody String token) throws JsonProcessingException {
 
         log.info("token :{}", token);
         return keycloakUserService1.getUserInfo(token);
+
+    }
+
+    @GetMapping("/getUsers")
+    public Object getUsers(@RequestBody String token) throws JsonProcessingException {
+
+        log.info("token :{}", token);
+        return keycloakUserService1.getUses(token);
 
     }
 

@@ -18,6 +18,7 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,20 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         String url = "http://localhost:8088/realms/AVL/protocol/openid-connect/userinfo";
 
         System.out.println(accessToken+"**************************");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response.getBody();
+    }
+    public Object getUses(String accessToken) {
+        String url = "http://localhost:8088/admin/realms/AVL/users";
+
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
@@ -238,6 +253,7 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         UsersResource usersResource = getUsersResource();
         usersResource.get(userId).sendVerifyEmail();
     }
+
 //   public void userijnf(String userId){
 //
 //        UsersResource usersResource = getUsersResource();
