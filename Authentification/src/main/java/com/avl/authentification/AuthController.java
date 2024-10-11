@@ -65,8 +65,12 @@ public class AuthController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getUsers")
-    public Object getUsers(@RequestBody String token) {
+    public Object getUsers(@RequestParam String token) {
+
+
+
 
         token = token.replace("token=", "");
 
