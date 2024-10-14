@@ -12,6 +12,6 @@ public interface KeycloakUserService {
     ResponseEntity<String> createUser(UserRegistrationRecord userRegistrationRecord);
 
     UserRepresentation getUserById(String userId);
-    void deleteUserById(String userId);
+    void deleteUserById(String userId, String accessToken);
 
 }

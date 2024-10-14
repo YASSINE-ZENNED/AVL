@@ -18,6 +18,7 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,34 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
 
     private  Keycloak keycloak;
 
+    public String getUser(String accessToken) {
+        String url = "http://localhost:8088/realms/AVL/protocol/openid-connect/userinfo";
+
+        System.out.println(accessToken+"**************************");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response.getBody();
+    }
+
+    public Object getUsers(String accessToken) {
+        String url = "http://localhost:8088/admin/realms/AVL/users";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response.getBody();
+    }
+
 //    private String keycloakRealm;
 
     // The RestTemplate object to make HTTP requests
@@ -69,8 +98,12 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
+        System.out.println("*************************************");
+
         ResponseEntity<Object> response = restTemplate.exchange(BASE_URL1, HttpMethod.POST, request, Object.class);
 
+
+        System.out.println("*************************************");
         // Call the API using the exchange method and get the response as a Ticket object
         // Get the userLoginResponse object from the response
         String json = mapper.writeValueAsString(response.getBody());
@@ -104,9 +137,9 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.put("username", Collections.singletonList(userLoginRecord.username()));
         params.put("password", Collections.singletonList(userLoginRecord.password()));
-        params.put("client_secret", Collections.singletonList("oB9cpN0oAvIsZcbiQEZUeRcv1ZDUIjKP"));
+        params.put("client_secret", Collections.singletonList("PkVyO0vifkCNEQXGeDTFtc9WTvoP5Zwi"));
         params.put("grant_type", Collections.singletonList("password"));
-        params.put("client_id", Collections.singletonList("Ticket-App"));
+        params.put("client_id", Collections.singletonList("AVL"));
         // Create a HttpEntity object with the parameters and headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -124,9 +157,7 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         String refreshToken = userLogin.getRefresh_token();
 
 // Display the token and refresh token
-        System.out.println("Token: " + token);
 
-        System.out.println("Refresh Token: " + refreshToken);
 
 
         JSONObject jsonObject = new JSONObject();
@@ -189,27 +220,38 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         return realm1.users();
     }
 
-
     @Override
     public UserRepresentation getUserById(String userId) {
 //        return  getUsersResource().get(userId).toRepresentation();
         return  getUsersResource().get(userId).toRepresentation();
     }
 
+
+
     @Override
-    public void deleteUserById(String userId) {
-        Response response =  getUsersResource().delete(userId);
+    public void deleteUserById(String userId , String accessToken) {
 
-        log.info("response: {}",response.getStatus());
+        String url ="http://localhost:8088/admin/realms/AVL/users/"+userId;
 
-        if(Objects.equals(201,response.getStatus())){
+        HttpHeaders headers = new HttpHeaders();
 
-            ResponseEntity.status(HttpStatus.OK).body("user have been deleted");
-        }else{
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User not deleted");
+        headers.set("Authorization", "Bearer " + accessToken);
 
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);
+
+        log.info("response: {}",response.getBody());
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            log.info("User deleted successfully. Response: {}", response.getBody());
+            // Optionally return a success message or handle the response further
+        } else {
+            // Handle unsuccessful deletion (log the error, return a more specific error message)
+            log.error("User deletion failed. Status code: {}, Response body: {}", response.getStatusCodeValue(), response.getBody());
+            // Consider returning a more informative error message based on the status code
+            throw new RuntimeException("User deletion failed. Status code: " + response.getStatusCodeValue());
         }
-
     }
 
 
@@ -219,6 +261,7 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         UsersResource usersResource = getUsersResource();
         usersResource.get(userId).sendVerifyEmail();
     }
+
 //   public void userijnf(String userId){
 //
 //        UsersResource usersResource = getUsersResource();
