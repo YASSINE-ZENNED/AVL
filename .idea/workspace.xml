@@ -7,6 +7,8 @@
     <list default="true" id="07e9cac4-ba10-44a3-9f4f-59b8bf461ffa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserSerivceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserSerivceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +134,10 @@
       <workItem from="1728567202208" duration="2053000" />
       <workItem from="1728577322238" duration="4632000" />
       <workItem from="1728643980720" duration="2181000" />
+      <workItem from="1728978614476" duration="5656000" />
+      <workItem from="1730294759333" duration="4231000" />
+      <workItem from="1730634801704" duration="4323000" />
+      <workItem from="1730655697079" duration="2151000" />
     </task>
     <servers />
   </component>

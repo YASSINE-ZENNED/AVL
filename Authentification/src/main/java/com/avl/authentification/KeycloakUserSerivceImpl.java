@@ -225,6 +225,37 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
 //        return  getUsersResource().get(userId).toRepresentation();
         return  getUsersResource().get(userId).toRepresentation();
     }
+    @Override
+    public ResponseEntity<String> updateUser(String userId, UserRegistrationRecord updatedUserDetails, String accessToken) {
+        // 1. Obtenir l'utilisateur à partir de son ID via l'API Keycloak
+        UserResource userResource = getUserResource(userId);
+
+        // 2. Récupérer la représentation actuelle de l'utilisateur
+        UserRepresentation userRepresentation = userResource.toRepresentation();
+
+        // 3. Mettre à jour les informations de l'utilisateur avec les nouvelles valeurs
+        userRepresentation.setUsername(updatedUserDetails.username());
+        userRepresentation.setFirstName(updatedUserDetails.firstName());
+        userRepresentation.setLastName(updatedUserDetails.lastName());
+        userRepresentation.setEmail(updatedUserDetails.email());
+
+        // Si tu souhaites également mettre à jour le mot de passe :
+        CredentialRepresentation newCredential = new CredentialRepresentation();
+        newCredential.setTemporary(false);
+        newCredential.setType(CredentialRepresentation.PASSWORD);
+        newCredential.setValue(updatedUserDetails.password());
+
+        userRepresentation.setCredentials(Collections.singletonList(newCredential));
+
+        // 4. Effectuer la mise à jour via Keycloak
+        userResource.update(userRepresentation);
+
+        // 5. Vérifier la réponse
+        log.info("User {} updated successfully.", userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
+    }
+
 
 
 

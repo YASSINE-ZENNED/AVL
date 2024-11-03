@@ -77,11 +77,30 @@ public class AuthController {
         return keycloakUserService1.getUsers(token);
 
     }
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody UserRegistrationRecord updatedUserRecord,
+                                             @RequestParam String userId,
+                                             @RequestParam String token) {
+        if (updatedUserRecord == null || userId == null || token == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("User data, userId, or token cannot be null");
+        }
+        try {
+            keycloakUserService1.updateUser(userId, updatedUserRecord, token);
+            return ResponseEntity.ok("User updated successfully");
+        } catch (Exception e) {
+            log.error("Error updating user: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update user: " + e.getMessage());
+        }
+    }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteById(@RequestBody Map<String, String> body) {
         String token = body.get("token");
+        System.out.println("token = " + token);
         String userId = body.get("userId");
+        System.out.println("userId = " + userId);
         if (token != null && userId != null) {
             token = token.replace("token:", "");
             userId = userId.replace("userId:", "");
