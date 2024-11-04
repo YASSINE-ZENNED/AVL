@@ -2,6 +2,7 @@ package com.avl.authentification;
 
 import com.avl.authentification.Models.UserInfo;
 import com.avl.authentification.Models.UserLoginRecord;
+import com.avl.authentification.Models.UserProfile;
 import com.avl.authentification.Models.UserRegistrationRecord;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
@@ -78,7 +79,7 @@ public class AuthController {
 
     }
     @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody UserRegistrationRecord updatedUserRecord,
+    public ResponseEntity<String> updateUser(@RequestBody UserProfile updatedUserRecord,
                                              @RequestParam String userId,
                                              @RequestParam String token) {
         if (updatedUserRecord == null || userId == null || token == null) {

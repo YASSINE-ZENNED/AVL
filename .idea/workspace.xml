@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07e9cac4-ba10-44a3-9f4f-59b8bf461ffa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/Models/UserProfile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserSerivceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Authentification/src/main/java/com/avl/authentification/KeycloakUserSerivceImpl.java" afterDir="false" />
@@ -20,6 +21,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -137,7 +139,9 @@
       <workItem from="1728978614476" duration="5656000" />
       <workItem from="1730294759333" duration="4231000" />
       <workItem from="1730634801704" duration="4323000" />
-      <workItem from="1730655697079" duration="2151000" />
+      <workItem from="1730655697079" duration="3676000" />
+      <workItem from="1730710513027" duration="787000" />
+      <workItem from="1730748861881" duration="5457000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,6 @@
 package com.avl.authentification;
 
-import com.avl.authentification.Models.UserInfo;
-import com.avl.authentification.Models.UserLoginRecord;
-import com.avl.authentification.Models.UserRegistrationRecord;
-import com.avl.authentification.Models.userLoginResponse;
+import com.avl.authentification.Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -226,35 +223,34 @@ public class KeycloakUserSerivceImpl implements KeycloakUserService {
         return  getUsersResource().get(userId).toRepresentation();
     }
     @Override
-    public ResponseEntity<String> updateUser(String userId, UserRegistrationRecord updatedUserDetails, String accessToken) {
-        // 1. Obtenir l'utilisateur à partir de son ID via l'API Keycloak
-        UserResource userResource = getUserResource(userId);
+    public ResponseEntity<String> updateUser(String userId, UserProfile updatedUserDetails, String accessToken) {
+        String url = "http://localhost:8088/admin/realms/AVL/users/" + userId;
 
-        // 2. Récupérer la représentation actuelle de l'utilisateur
-        UserRepresentation userRepresentation = userResource.toRepresentation();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // 3. Mettre à jour les informations de l'utilisateur avec les nouvelles valeurs
-        userRepresentation.setUsername(updatedUserDetails.username());
-        userRepresentation.setFirstName(updatedUserDetails.firstName());
-        userRepresentation.setLastName(updatedUserDetails.lastName());
-        userRepresentation.setEmail(updatedUserDetails.email());
+        // Create the HTTP entity, passing the updatedUserDetails in the body as JSON
+        HttpEntity<UserProfile> entity = new HttpEntity<>(updatedUserDetails, headers);
 
-        // Si tu souhaites également mettre à jour le mot de passe :
-        CredentialRepresentation newCredential = new CredentialRepresentation();
-        newCredential.setTemporary(false);
-        newCredential.setType(CredentialRepresentation.PASSWORD);
-        newCredential.setValue(updatedUserDetails.password());
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
 
-        userRepresentation.setCredentials(Collections.singletonList(newCredential));
-
-        // 4. Effectuer la mise à jour via Keycloak
-        userResource.update(userRepresentation);
-
-        // 5. Vérifier la réponse
-        log.info("User {} updated successfully.", userId);
-
-        return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
+            if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
+                // Return a success message if the response status is 204 No Content
+                return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
+            } else {
+                // Return an error message if the response status is not 204
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Failed to update user: Unexpected status code " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            log.error("Error updating user: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update user: " + e.getMessage());
+        }
     }
+
 
 
 
